@@ -1,7 +1,18 @@
 # Visual Studio Code - Fauxpilot Client - 0xhaggis multiline fork
 
+### Bleeding edge software. Caveat emptor!
+Good luck, brave soul.
+
 ### Get up and running
 Follow the instructions on the [original vscode-fauxpilot page](https://github.com/Venthe/vscode-fauxpilot). 
+
+To build the extension and debug it you may need:
+
+```
+npm i --save-dev webpack webpack-cli ts-loader  # really needed?
+npm run package
+# now hit F5
+```
 
 ### Multi-line completion for Python
 It works ok for Python, especially if you ask it for things in comments. For example:
