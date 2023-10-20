@@ -62,7 +62,7 @@ export class FauxpilotClient {
         this.model = extConfig.get("model") ?? "<<UNSET>>";
         this.maxTokens = extConfig.get("maxTokens", 80);
         this.temperature = extConfig.get("temperature", 0.5);
-        this.stopWords = extConfig.get("inlineCompletion") ? ["\n"] : [];
+        this.stopWords = extConfig.get("inlineCompletion") ? ["\n#"] : []; // this is pretty janky, but works enough for now
         this.token = extConfig.get("token", '');
         this.requestType = extConfig.get("requestType", 'openai') === 'openai' ? RequestType.OpenAI : RequestType.Aixos;
         this.maxLines = extConfig.get("maxLines", 150);

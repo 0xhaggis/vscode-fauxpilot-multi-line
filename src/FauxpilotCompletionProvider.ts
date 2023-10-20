@@ -176,7 +176,21 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
             return [];
         }
 
-        return [new InlineCompletionItem(choice1Text, new Range(position, position.translate(0, choice1Text.length)))];
+        // Build an array of possible completions. Start with multi-line, then each line of code suggested gets a place in the choice list.
+        // TODO: have different modes for completion type!
+        let choices = [];
+        choices.push(new InlineCompletionItem(choice1Text, new Range(position, position.translate(0, choice1Text.length))));
+
+        let lines = choice1Text.split("\n");
+        if(lines.length > 1 ) {
+            for(let i = 0; i < lines.length; i++) {
+                //console.log("Adding ", lines[i]);
+                choices.push(new InlineCompletionItem(lines[i], new Range(position, position.translate(0, lines[i].length))));
+            }
+        }
+
+        //return [new InlineCompletionItem(choice1Text, new Range(position, position.translate(0, choice1Text.length)))];
+        return choices;
     }
 
 }

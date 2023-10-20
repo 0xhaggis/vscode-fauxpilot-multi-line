@@ -1,67 +1,32 @@
-# Visual Studio Code - Fauxpilot Client
+# Visual Studio Code - Fauxpilot Client - 0xhaggis multiline fork
 
-[![GitHub contributors](https://img.shields.io/github/contributors/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/Venthe/vscode-fauxpilot?style=social)](https://github.com/Venthe/vscode-fauxpilot/forks)
-[![Stars](https://img.shields.io/github/stars/venthe/vscode-fauxpilot?style=social)](https://github.com/Venthe/vscode-fauxpilot/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/issues)
-[![License](https://img.shields.io/github/license/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/blob/main/LICENSE.md)
-[![Test](https://github.com/Venthe/vscode-fauxpilot/actions/workflows/test.yml/badge.svg)](https://github.com/Venthe/vscode-fauxpilot/actions/workflows/test.yml)
+### Get up and running
+Follow the instructions on the [original vscode-fauxpilot page](https://github.com/Venthe/vscode-fauxpilot). 
 
-Please be aware! For this extension to work you have to set up [Fauxpilot server](https://github.com/moyix/fauxpilot) by @moyix
+### Multi-line completion for Python
+It works ok for Python, especially if you ask it for things in comments. For example:
 
-## Development
+```python
+import sys
 
-*Copied from VSC extension guidelines*
+# function to connect to host 'hostname' on port 'port' and return a socket. Handle all errors gracefully.
+```
 
-### What's in the folder
+Fauxpilot will return something like this for a completion:
 
-* This folder contains all of the files necessary for your extension.
-* `package.json` - this is the manifest file in which you declare your extension and command.
-  * The sample plugin registers a command and defines its title and command name. With this information VS Code can show the command in the command palette. It doesn’t yet need to load the plugin.
-* `src/extension.ts` - this is the main file where you will provide the implementation of your command.
-  * The file exports one function, `activate`, which is called the very first time your extension is activated (in this case by executing the command). Inside the `activate` function we call `registerCommand`.
-  * We pass the function containing the implementation of the command as the second parameter to `registerCommand`.
+```python
+def connect(host, port):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((host, port))
+        return s
+    except socket.error as e:
+        print("Error connecting to %s:%s" % (host, port))
+        print(e)
+        sys.exit(1)
+```
 
-### Setup
+Just hit `tab` and voila, fully-written function.
 
-* install the recommended extensions (amodio.tsl-problem-matcher and dbaeumer.vscode-eslint)
-
-### Get up and running straight away
-
-* Press `F5` to open a new window with your extension loaded.
-* Run your command from the command palette by pressing (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and typing `Hello World`.
-* Set breakpoints in your code inside `src/extension.ts` to debug your extension.
-* Find output from your extension in the debug console.
-
-### Make changes
-
-* You can relaunch the extension from the debug toolbar after changing code in `src/extension.ts`.
-* You can also reload (`Ctrl+R` or `Cmd+R` on Mac) the VS Code window with your extension to load your changes.
-
-### Explore the API
-
-* You can open the full set of our API when you open the file `node_modules/@types/vscode/index.d.ts`.
-
-### Run tests
-
-* Open the debug viewlet (`Ctrl+Shift+D` or `Cmd+Shift+D` on Mac) and from the launch configuration dropdown pick `Extension Tests`.
-* Press `F5` to run the tests in a new window with your extension loaded.
-* See the output of the test result in the debug console.
-* Make changes to `src/test/suite/extension.test.ts` or create new test files inside the `test/suite` folder.
-  * The provided test runner will only consider files matching the name pattern `**.test.ts`.
-  * You can create folders inside the `test` folder to structure your tests any way you want.
-
-### Go further
-
-* Reduce the extension size and improve the startup time by [bundling your extension](https://code.visualstudio.com/api/working-with-extensions/bundling-extension).
-* [Publish your extension](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) on the VS Code extension marketplace.
-* Automate builds by setting up [Continuous Integration](https://code.visualstudio.com/api/working-with-extensions/continuous-integration).
-
-## Acknowledgements
-
-Inspired & used snippets from:
-
-* https://github.com/hieunc229/copilot-clone
-
-
-Client is build around [Fauxpilot server](https://github.com/moyix/fauxpilot)
+### Other languages
+It sucked for C in a quick test, but other LLMs might work better than the [default fauxpilot server LLM](https://github.com/fauxpilot/fauxpilot). More testing soon. 
